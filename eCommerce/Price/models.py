@@ -8,7 +8,7 @@ class ProductPrice(models.Model):
     Product = models.ForeignKey(Product,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.Product.product_name+"   "+str(self.Product.price)
+        return self.Product.product_name+"   "+self.Product.price
 
 
     class Meta:

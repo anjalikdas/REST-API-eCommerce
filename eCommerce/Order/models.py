@@ -15,10 +15,15 @@ class ProductCart(models.Model):
     def __str__(self):
         return self.product.product_name
 
-        
+    @property
+    def product_name(self):
+       return self.product.product_name
 
     def get_total_product_price(self):
         return self.quantity * self.product.price
+    
+
+    
 
 
 class Order(models.Model):
@@ -28,8 +33,8 @@ class Order(models.Model):
     ('shipped', 'Shipped'),
     ('delivered', 'Delivered'),
     ('cancelled','Cancelled'))
-    customer = models.ForeignKey(customer, on_delete=models.CASCADE)
-    product = models.ManyToManyField(ProductCart)
+    customer = models.ForeignKey(customer, on_delete=models.CASCADE,related_name='order')
+    product = models.ManyToManyField(ProductCart,related_name='order')
     address = models.CharField(max_length=250)
     address_second = models.CharField(max_length=250, null=True, blank=True)
     postal_code = models.CharField(max_length=6)
@@ -41,8 +46,7 @@ class Order(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     
 
-    def __str__(self):
-        return str(self.id)
+    
 
 
     class Meta:

@@ -18,13 +18,13 @@ class Category(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=25)
     product_code = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True,related_name='product')
     product_dimension = models.JSONField()
     price = models.DecimalField(decimal_places=2,max_digits=9)
     stock = models.PositiveIntegerField()
     is_active = models.BooleanField(default=True)
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,null=True,blank=True)
     seller = models.ForeignKey(Company, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee,on_delete=models.SET_NULL,null=True,blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -34,6 +34,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+   
+
+    
+
 
     @property
     def is_available(self):
@@ -41,6 +45,9 @@ class Product(models.Model):
 
     def seller_name(self):
         return self.seller.company_name
+
+    def get_stock(self):
+        return self.stock    
 
      
    

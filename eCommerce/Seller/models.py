@@ -30,7 +30,7 @@ class Employee(models.Model):
     email = models.EmailField(max_length=70, unique=True)
     Phone_no = models.CharField(max_length=10,null=True)
     department = models.CharField(choices = DEPARTMENT,null=True,default='PM',max_length=20)
-    Company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    Company = models.ForeignKey(Company, on_delete=models.CASCADE,related_name='employee')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

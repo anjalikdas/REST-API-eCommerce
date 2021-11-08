@@ -14,3 +14,7 @@ class customer(models.Model):
 
     class Meta:
         verbose_name_plural = "Customer Details"     
+
+    @property
+    def customer_name(self):
+       return "%s %s" % (self.user.first_name, self.user.last_name)    
